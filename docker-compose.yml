@@ -6,11 +6,12 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     image: technical_app/api
+    container_name: technicalapp_api
     ports:
       - '8080:8080'
       - '5005:5005'
     environment:
-      - ADDITTIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       - PROFILE=dev
     links:
       - db
