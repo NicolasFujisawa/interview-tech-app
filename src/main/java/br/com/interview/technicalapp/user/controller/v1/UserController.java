@@ -1,14 +1,13 @@
 package br.com.interview.technicalapp.user.controller.v1;
 
-import javax.ws.rs.core.Response;
+import br.com.interview.technicalapp.user.controller.v1.dto.UserRequest;
+import br.com.interview.technicalapp.user.controller.v1.dto.UserResponse;
+import br.com.interview.technicalapp.user.service.UserService;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import br.com.interview.technicalapp.user.controller.v1.dto.UserRequest;
-import br.com.interview.technicalapp.user.controller.v1.dto.UserResponse;
-import br.com.interview.technicalapp.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
