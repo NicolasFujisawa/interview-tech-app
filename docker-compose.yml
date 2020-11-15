@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  technical-api:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: technical_app/api
+    ports:
+      - '8080:8080'
+      - '5005:5005'
+    environment:
+      - ADDITTIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx1G -Xms128m -XX:MaxMetaspaceSize=128m
+      - PROFILE=dev
+    links:
+      - db
+  db:
+    image: postgres:13-alpine
+    container_name: technicalapp_db
+    environment:
+      POSTGRES_DB: techapp
+      POSTGRES_USER: techapp
+      POSTGRES_PASSWORD: techapp
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./docker/volume_postgres:/var/lib/postgresql/data
