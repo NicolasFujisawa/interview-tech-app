@@ -1,5 +1,9 @@
 package br.com.interview.technicalapp.user.controller.v1.dto;
 
+import java.util.List;
+
+import br.com.interview.technicalapp.question.controller.v1.dto.QuestionResponse;
+import br.com.interview.technicalapp.question.model.Question;
 import br.com.interview.technicalapp.user.model.User;
 
 import lombok.Getter;
@@ -15,11 +19,15 @@ public class UserResponse {
 
     private String senha;
 
+    private List<QuestionResponse> questions;
+
     public static UserResponse render(User u) {
         var user = new UserResponse();
         user.setId(u.getId().toString());
         user.setNome(u.getUsername());
         user.setSenha(u.getPassword());
+        user.setQuestions(QuestionResponse.renderMany(u.getQuestions()));
+
         return user;
     }
 }

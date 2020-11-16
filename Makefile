@@ -4,11 +4,11 @@ dk-build:
 dk-up:
 	docker-compose up --build --force-recreate
 
-dk-dows:
+dk-down:
 	docker-compose down
 
-build:
+jdk-build:
 	./gradlew build -xtest
 
-clean:
+jdk-clean:
 	./gradlew clean
