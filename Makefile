@@ -14,7 +14,7 @@ dk-down:
 build:
 	./gradlew build -xtest
 
-jdk-clean:
+clean:
 	./gradlew clean
 
 postgres:
