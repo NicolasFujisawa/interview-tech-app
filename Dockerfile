@@ -8,7 +8,7 @@ ENV ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
 
 WORKDIR /app/api
 
-COPY /build/libs/technical-app*.jar technical-app.jar
+ADD /build/libs/technical-app*.jar technical-app.jar
 
 SHELL ["/bin/sh", "-c"]
 
