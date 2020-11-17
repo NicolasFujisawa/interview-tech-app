@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -45,15 +46,15 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
-    private List<Content> contents;
+    private List<Content> contents = new ArrayList<>();
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(
             name = "user_question",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id")
     )
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,9 +39,9 @@ public class Question {
     private String description;
 
     @ManyToMany(mappedBy = "questions")
-    private List<Content> contents;
+    private List<Content> contents = new ArrayList<>();
 
     @ManyToMany(mappedBy = "questions")
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
 }

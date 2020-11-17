@@ -1,6 +1,10 @@
 package br.com.interview.technicalapp.user.controller.v1;
 
+import br.com.interview.technicalapp.content.controller.v1.dto.ContentRequest;
+import br.com.interview.technicalapp.content.controller.v1.dto.ContentResponse;
+import br.com.interview.technicalapp.content.service.ContentService;
 import br.com.interview.technicalapp.question.controller.v1.dto.QuestionRequest;
+import br.com.interview.technicalapp.question.controller.v1.dto.QuestionResponse;
 import br.com.interview.technicalapp.question.service.QuestionService;
 import br.com.interview.technicalapp.user.controller.v1.dto.UserRequest;
 import br.com.interview.technicalapp.user.controller.v1.dto.UserResponse;
@@ -10,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,9 @@ public class UserController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private ContentService contentService;
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> list() {
@@ -84,16 +90,31 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/questions")
-    public ResponseEntity<UserResponse> createQuestion(@PathVariable("userId") UUID userId,
-                                                       @RequestBody QuestionRequest questionRequest) {
+    public ResponseEntity<QuestionResponse> createQuestion(@PathVariable("userId") UUID userId,
+                                                           @RequestBody QuestionRequest questionRequest) {
         var user = this.userService.findById(userId);
         if (user.isPresent()) {
             var userPresent = user.get();
             var question = QuestionRequest.render(questionRequest);
             userPresent.getQuestions().add(question);
+            question.getUsers().add(userPresent);
             this.questionService.save(question);
-            this.userService.create(userPresent);
-            return ResponseEntity.ok(UserResponse.render(userPresent));
+            return ResponseEntity.ok(QuestionResponse.render(question));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{userId}/contents")
+    public ResponseEntity<ContentResponse> createContent(@PathVariable("userId") UUID userId,
+                                                         @RequestBody ContentRequest contentRequest) {
+        var user = this.userService.findById(userId);
+        if (user.isPresent()) {
+            var userPresent = user.get();
+            var content = ContentRequest.render(contentRequest);
+            content.setOwner(userPresent);
+            var saved = this.contentService.save(content);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(ContentResponse.render(saved));
         }
         return ResponseEntity.notFound().build();
     }
