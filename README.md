@@ -2,6 +2,8 @@
 
 Projeto API para montar provas com questões personalizadas, e distribuilas para candidatos.
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/NicolasFujisawa/interview-tech-app/Java%20CI%20with%20Gradle)
+
 ## Ambiente Dev
 
 Builde com Gradle
