@@ -20,6 +20,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  liquibase:
+    enabled: false
   devtools:
     remote:
       secret: mysecret

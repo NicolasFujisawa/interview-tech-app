@@ -19,21 +19,26 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Optional<Question> findById(UUID questionId) {
-        return questionRepository.findById(questionId);
+        return this.questionRepository.findById(questionId);
     }
 
     @Override
     public List<Question> findAll() {
-        return questionRepository.findAll();
+        return this.questionRepository.findAll();
     }
 
     @Override
     public Question save(Question question) {
-        return questionRepository.save(question);
+        return this.questionRepository.save(question);
     }
 
     @Override
     public void deleteById(UUID questionId) {
-        questionRepository.deleteById(questionId);
+        this.questionRepository.deleteById(questionId);
+    }
+
+    @Override
+    public boolean existsById(UUID questionId) {
+        return this.questionRepository.existsById(questionId);
     }
 }

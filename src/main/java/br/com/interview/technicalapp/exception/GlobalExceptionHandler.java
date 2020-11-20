@@ -16,7 +16,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST)
                         .message(ex.getMessage())
-                        .name(ex.getCause().toString())
+                        .error(ex.getCause().toString())
                         .build()
         );
     }
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ErrorResponse.builder()
                         .status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .message(ex.getMessage())
-                        .name(ex.getClass().toString())
+                        .error(ex.getClass().toString())
                         .build()
         );
     }

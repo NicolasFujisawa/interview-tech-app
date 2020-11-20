@@ -15,4 +15,6 @@ public interface QuestionService {
     Question save(Question question);
 
     void deleteById(UUID questionId);
+
+    boolean existsById(UUID questionId);
 }
