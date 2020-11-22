@@ -15,8 +15,8 @@ public class UserRequest {
 
     public static User render(UserRequest u) {
         var user = new User();
-        user.setUsername(u.getNome());
-        user.setPassword(u.getSenha());
+        user.setName(u.getNome());
+        user.setLastname(u.getSenha());
         return user;
     }
 }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import br.com.interview.technicalapp.question.controller.v1.dto.QuestionIdResponse;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,24 +17,24 @@ public class ContentResponse {
 
     private UUID id;
 
+    private UUID owner;
+
     private String title;
 
-    private List<QuestionResponse> questions;
-
-    private UUID owner;
+    private List<QuestionIdResponse> questions;
 
     public static ContentResponse render(Content content) {
         var contentResponse = new ContentResponse();
         contentResponse.setId(content.getId());
         contentResponse.setTitle(content.getTitle());
-        contentResponse.setQuestions(QuestionResponse.renderMany(content.getQuestions()));
+        contentResponse.setQuestions(QuestionIdResponse.renderMany(content.getQuestions()));
         contentResponse.setOwner(content.getOwner().getId());
 
         return contentResponse;
     }
 
     public static List<ContentResponse> renderMany(List<Content> contents) {
-        if(contents == null) {
+        if (contents == null) {
             return new ArrayList<>();
         }
         List<ContentResponse> contentResponses = new ArrayList<>();

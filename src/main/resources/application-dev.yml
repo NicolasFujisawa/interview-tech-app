@@ -25,3 +25,7 @@ spring:
   devtools:
     remote:
       secret: mysecret
+  banner:
+    output:
+      ansi:
+        enabled: always

@@ -20,3 +20,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+  liquibase:
+    enabled: false
+  devtools:
+    remote:
+      secret: mysecret
+  banner:
+    output:
+      ansi:
+        enabled: always

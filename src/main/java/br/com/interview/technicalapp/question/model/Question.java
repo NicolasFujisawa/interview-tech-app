@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import br.com.interview.technicalapp.content.model.Content;
 
+import br.com.interview.technicalapp.recruiter.model.Recruiter;
 import br.com.interview.technicalapp.user.model.User;
 
 import lombok.Getter;
@@ -42,6 +43,6 @@ public class Question {
     private List<Content> contents = new ArrayList<>();
 
     @ManyToMany(mappedBy = "questions")
-    private List<User> users = new ArrayList<>();
+    private List<Recruiter> recruiters = new ArrayList<>();
 
 }

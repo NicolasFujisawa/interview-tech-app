@@ -1,11 +1,5 @@
 package br.com.interview.technicalapp.user.controller.v1;
 
-import br.com.interview.technicalapp.content.controller.v1.dto.ContentRequest;
-import br.com.interview.technicalapp.content.controller.v1.dto.ContentResponse;
-import br.com.interview.technicalapp.content.service.ContentService;
-import br.com.interview.technicalapp.question.controller.v1.dto.QuestionRequest;
-import br.com.interview.technicalapp.question.controller.v1.dto.QuestionResponse;
-import br.com.interview.technicalapp.question.service.QuestionService;
 import br.com.interview.technicalapp.user.controller.v1.dto.UserRequest;
 import br.com.interview.technicalapp.user.controller.v1.dto.UserResponse;
 import br.com.interview.technicalapp.user.service.UserService;
@@ -32,12 +26,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    private ContentService contentService;
-
     @GetMapping
     public ResponseEntity<List<UserResponse>> list() {
         var users = userService.findAll();
@@ -56,65 +44,24 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> show(@PathVariable("userId") String userId) {
-        UUID id;
-        try {
-            id = UUID.fromString(userId);
-        } catch (IllegalArgumentException ex) {
-            throw new IllegalArgumentException(ex);
-        }
-        var user = userService.findById(id);
+    public ResponseEntity<UserResponse> show(@PathVariable("userId") UUID userId) {
+        var user = userService.findById(userId);
 
         return user.map(value -> ResponseEntity.ok(UserResponse.render(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserResponse> update(@PathVariable("userId") String userId,
+    public ResponseEntity<UserResponse> update(@PathVariable("userId") UUID userId,
                                                @RequestBody UserRequest userRequest) {
-        UUID id;
-        try {
-            id = UUID.fromString(userId);
-        } catch (IllegalArgumentException ex) {
-            throw new IllegalArgumentException(ex);
-        }
-        var user = userService.findById(id);
+        var user = userService.findById(userId);
 
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             var userSave = user.get();
-            userSave.setUsername(userRequest.getNome());
-            userSave.setPassword(userRequest.getSenha());
-            return ResponseEntity.ok(UserResponse.render(userService.create(userSave)));
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/{userId}/questions")
-    public ResponseEntity<QuestionResponse> createQuestion(@PathVariable("userId") UUID userId,
-                                                           @RequestBody QuestionRequest questionRequest) {
-        var user = this.userService.findById(userId);
-        if (user.isPresent()) {
-            var userPresent = user.get();
-            var question = QuestionRequest.render(questionRequest);
-            userPresent.getQuestions().add(question);
-            question.getUsers().add(userPresent);
-            this.questionService.save(question);
-            return ResponseEntity.ok(QuestionResponse.render(question));
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/{userId}/contents")
-    public ResponseEntity<ContentResponse> createContent(@PathVariable("userId") UUID userId,
-                                                         @RequestBody ContentRequest contentRequest) {
-        var user = this.userService.findById(userId);
-        if (user.isPresent()) {
-            var userPresent = user.get();
-            var content = ContentRequest.render(contentRequest);
-            content.setOwner(userPresent);
-            var saved = this.contentService.save(content);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(ContentResponse.render(saved));
+            userSave.setName(userRequest.getNome());
+            userSave.setLastname(userRequest.getSenha());
+            this.userService.create(userSave);
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }

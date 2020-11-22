@@ -14,6 +14,12 @@ dk-down:
 build:
 	./gradlew build -xtest
 
+build-continuous:
+	./gradlew build --continuous -xtest -Pdev
+
+run:
+	./gradlew bootRun -Pdev --debug
+
 clean:
 	./gradlew clean
 

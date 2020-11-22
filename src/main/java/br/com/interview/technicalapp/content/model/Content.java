@@ -1,10 +1,8 @@
 package br.com.interview.technicalapp.content.model;
 
+import br.com.interview.technicalapp.candidate.model.Candidate;
 import br.com.interview.technicalapp.question.model.Question;
-import br.com.interview.technicalapp.user.model.User;
-
-import lombok.Getter;
-import lombok.Setter;
+import br.com.interview.technicalapp.recruiter.model.Recruiter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "contents")
@@ -45,21 +46,25 @@ public class Content {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    private User owner;
+    private Recruiter owner;
+
+    @ManyToMany(mappedBy = "availableContents")
+    private List<Candidate> candidates = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Content)) return false;
         Content content = (Content) o;
-        return Objects.equals(id, content.id) &&
-                Objects.equals(title, content.title) &&
+        return id.equals(content.id) &&
+                title.equals(content.title) &&
                 Objects.equals(questions, content.questions) &&
-                Objects.equals(owner, content.owner);
+                Objects.equals(owner, content.owner) &&
+                Objects.equals(candidates, content.candidates);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, questions, owner);
+        return Objects.hash(id, title, questions, owner, candidates);
     }
 }

@@ -28,7 +28,7 @@ public class QuestionResponse {
     }
 
     public static List<QuestionResponse> renderMany(List<Question> questions) {
-        if(questions == null) {
+        if (questions == null) {
             return new ArrayList<>();
         }
         List<QuestionResponse> questionsResponse = new ArrayList<>();

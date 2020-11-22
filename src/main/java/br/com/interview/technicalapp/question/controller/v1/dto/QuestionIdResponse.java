@@ -1,4 +1,4 @@
-package br.com.interview.technicalapp.content.controller.v1.dto;
+package br.com.interview.technicalapp.question.controller.v1.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +11,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class QuestionResponse {
+public class QuestionIdResponse {
 
     private UUID id;
 
-    public static QuestionResponse render(Question question) {
-        var response = new QuestionResponse();
+    public static QuestionIdResponse render(Question question) {
+        var response = new QuestionIdResponse();
         response.setId(question.getId());
         return response;
     }
 
-    public static List<QuestionResponse> renderMany(List<Question> questions) {
-        List<QuestionResponse> responses = new ArrayList<>();
+    public static List<QuestionIdResponse> renderMany(List<Question> questions) {
+        List<QuestionIdResponse> responses = new ArrayList<>();
         for (Question question : questions) {
             responses.add(render(question));
         }
