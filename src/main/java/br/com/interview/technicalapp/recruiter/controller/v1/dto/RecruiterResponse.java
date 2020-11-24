@@ -1,11 +1,11 @@
 package br.com.interview.technicalapp.recruiter.controller.v1.dto;
 
-import java.util.List;
-import java.util.UUID;
-
 import br.com.interview.technicalapp.content.controller.v1.dto.ContentResponse;
 import br.com.interview.technicalapp.question.controller.v1.dto.QuestionResponse;
 import br.com.interview.technicalapp.recruiter.model.Recruiter;
+
+import java.util.List;
+import java.util.UUID;
 
 import lombok.Getter;
 import lombok.Setter;

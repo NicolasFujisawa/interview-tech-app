@@ -1,5 +1,6 @@
 package br.com.interview.technicalapp.recruiter.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,6 +15,11 @@ public class RecruiterServiceImpl implements RecruiterService {
 
     @Autowired
     RecruiterRepository recruiterRepository;
+
+    @Override
+    public List<Recruiter> findAll() {
+        return this.recruiterRepository.findAll();
+    }
 
     @Override
     public Recruiter save(Recruiter recruiter) {

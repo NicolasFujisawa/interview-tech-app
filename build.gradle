@@ -7,7 +7,6 @@ plugins {
 group = 'br.com.interview'
 version = '0.3.0-SNAPSHOT'
 sourceCompatibility = '11'
-def profiles = 'dev'
 
 configurations {
     developmentOnly
@@ -29,10 +28,6 @@ bootJar {
         attributes('Implementation-Title': 'TechnicalApp',
                 'Implementation-Version': archiveVersion)
     }
-}
-
-bootRun {
-    args = ["--spring.profiles.active=" + profiles]
 }
 
 dependencies {

@@ -17,6 +17,7 @@ import br.com.interview.technicalapp.content.model.Content;
 import br.com.interview.technicalapp.question.model.Question;
 import br.com.interview.technicalapp.user.model.User;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

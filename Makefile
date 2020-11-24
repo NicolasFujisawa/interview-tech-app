@@ -1,10 +1,10 @@
 dk-build:
 	docker-compose build
 
-dk-up:
+dk-upb:
 	docker-compose up --build
 
-dk-up-recreate:
+dk-upb-recreate:
 	docker-compose up --build --force-recreate
 
 dk-down:
@@ -13,12 +13,6 @@ dk-down:
 .PHONY: build
 build:
 	./gradlew build -xtest
-
-build-continuous:
-	./gradlew build --continuous -xtest -Pdev
-
-run:
-	./gradlew bootRun -Pdev --debug
 
 clean:
 	./gradlew clean

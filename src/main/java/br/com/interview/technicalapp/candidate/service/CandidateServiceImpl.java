@@ -1,10 +1,11 @@
 package br.com.interview.technicalapp.candidate.service;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import br.com.interview.technicalapp.candidate.model.Candidate;
 import br.com.interview.technicalapp.candidate.repository.CandidateRepository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,12 @@ import org.springframework.stereotype.Service;
 public class CandidateServiceImpl implements CandidateService {
 
     @Autowired
-    CandidateRepository candidateRepository;
+    private CandidateRepository candidateRepository;
+
+    @Override
+    public List<Candidate> findAll() {
+        return this.candidateRepository.findAll();
+    }
 
     @Override
     public Candidate save(Candidate candidate) {

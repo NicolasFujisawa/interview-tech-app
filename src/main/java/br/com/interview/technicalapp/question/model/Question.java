@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import lombok.Getter;
@@ -43,4 +44,20 @@ public class Question {
     @ManyToMany(mappedBy = "questions")
     private List<Recruiter> recruiters = new ArrayList<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+        Question question = (Question) o;
+        return id.equals(question.id) &&
+                title.equals(question.title) &&
+                Objects.equals(description, question.description) &&
+                Objects.equals(contents, question.contents) &&
+                Objects.equals(recruiters, question.recruiters);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, contents, recruiters);
+    }
 }

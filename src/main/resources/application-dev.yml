@@ -23,9 +23,6 @@ spring:
   liquibase:
     change-log: db/migration/db.changelog-master.yaml
     enabled: true
-    url: jdbc:postgresql://db:5432/techapp
-    password: techapp
-    user: techapp
   devtools:
     remote:
       secret: mysecret
