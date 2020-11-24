@@ -17,7 +17,7 @@ make build
 
 Suba seu projeto com docker
 ```shell
-make dk-up
+make dk-upb
 ```
 
 Você pode ativar o Hotswap no IntelliJ iniciando um novo Spring Remote
