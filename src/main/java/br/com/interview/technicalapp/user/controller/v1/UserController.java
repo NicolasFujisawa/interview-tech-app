@@ -58,8 +58,7 @@ public class UserController {
 
         if (user.isPresent()) {
             var userSave = user.get();
-            userSave.setName(userRequest.getNome());
-            userSave.setLastname(userRequest.getSenha());
+            userSave.setUsername(userRequest.getUsername());
             this.userService.create(userSave);
             return ResponseEntity.ok().build();
         }

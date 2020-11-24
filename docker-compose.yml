@@ -25,4 +25,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./docker/volume_postgres:/var/lib/postgresql/data
+      - techapp_vol:/var/lib/postgresql/data
+
+volumes:
+  techapp_vol:

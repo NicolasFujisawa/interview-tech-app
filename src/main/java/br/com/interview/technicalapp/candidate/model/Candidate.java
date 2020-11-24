@@ -20,7 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "candidates")
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "user_id")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,7 +28,7 @@ public class Candidate extends User {
 
     @ManyToMany
     @JoinTable(
-            name = "canditate_content",
+            name = "candidate_content",
             joinColumns = @JoinColumn(name = "candidate_id"),
             inverseJoinColumns = @JoinColumn(name = "content_id")
     )

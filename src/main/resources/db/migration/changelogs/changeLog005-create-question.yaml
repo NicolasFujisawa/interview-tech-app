@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-questions
+      author: nicolas.fujisawa
+      changes:
+        - createTable:
+            tableName: questions
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: questions_pkey
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(250)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: description
+                  type: text
+
+        - rollback:
+            dropTable:
+              tableName: contents

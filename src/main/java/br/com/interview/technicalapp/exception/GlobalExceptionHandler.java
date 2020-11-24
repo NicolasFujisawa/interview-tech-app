@@ -15,18 +15,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({IllegalArgumentException.class, TransactionSystemException.class})
     protected ResponseEntity<ErrorResponse> handleBadRequest(Exception ex) {
+        log.info("from handleBadRequest", ex);
         return ResponseEntity.badRequest().body(
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST)
                         .message(ex.getMessage())
-                        .error(ex.getCause().toString())
                         .build()
         );
     }
 
     @ExceptionHandler(ResponseStatusException.class)
     protected ResponseEntity<ErrorResponse> handleResponseStatusException(ResponseStatusException exception) {
-        log.info(exception.getMostSpecificCause().getMessage(), exception);
+        log.info("from handleResponseStatusException:", exception);
         return ResponseEntity.status(exception.getStatus()).body(
                 ErrorResponse.builder()
                         .status(exception.getStatus())
@@ -37,12 +37,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception ex) {
-        log.info("stack", ex);
+        log.info("from handleException", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 ErrorResponse.builder()
                         .status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .message(ex.getMessage())
-                        .error(ex.getClass().toString())
                         .build()
         );
     }

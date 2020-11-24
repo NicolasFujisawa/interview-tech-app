@@ -23,7 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "recruiters")
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "user_id")
 @Getter
 @Setter
 @NoArgsConstructor

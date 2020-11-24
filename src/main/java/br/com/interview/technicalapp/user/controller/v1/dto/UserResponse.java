@@ -11,15 +11,12 @@ public class UserResponse {
 
     private String id;
 
-    private String nome;
-
-    private String sobrenome;
+    private String username;
 
     public static UserResponse render(User u) {
         var user = new UserResponse();
         user.setId(u.getId().toString());
-        user.setNome(u.getName());
-        user.setSobrenome(u.getLastname());
+        user.setUsername(u.getUsername());
 
         return user;
     }

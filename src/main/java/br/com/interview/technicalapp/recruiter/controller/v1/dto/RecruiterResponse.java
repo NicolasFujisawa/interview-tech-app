@@ -16,9 +16,7 @@ public class RecruiterResponse {
 
     private UUID id;
 
-    private String nome;
-
-    private String sobrenome;
+    private String username;
 
     private List<ContentResponse> contents;
 
@@ -27,8 +25,7 @@ public class RecruiterResponse {
     public static RecruiterResponse render(Recruiter recruiter) {
         var recruiterResponse = new RecruiterResponse();
         recruiterResponse.setId(recruiter.getId());
-        recruiterResponse.setNome(recruiter.getName());
-        recruiterResponse.setSobrenome(recruiter.getLastname());
+        recruiterResponse.setUsername(recruiter.getUsername());
         recruiterResponse.setContents(ContentResponse.renderMany(recruiter.getContents()));
         recruiterResponse.setQuestions(QuestionResponse.renderMany(recruiter.getQuestions()));
         return recruiterResponse;

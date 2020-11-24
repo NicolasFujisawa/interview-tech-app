@@ -1,6 +1,9 @@
 package br.com.interview.technicalapp.question.model;
 
 
+import br.com.interview.technicalapp.content.model.Content;
+import br.com.interview.technicalapp.recruiter.model.Recruiter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +15,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import br.com.interview.technicalapp.content.model.Content;
-
-import br.com.interview.technicalapp.recruiter.model.Recruiter;
-import br.com.interview.technicalapp.user.model.User;
 
 import lombok.Getter;
 import lombok.Setter;

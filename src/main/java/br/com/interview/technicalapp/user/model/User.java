@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,13 +29,9 @@ public class User {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "username", nullable = false, length = 72)
     @NotNull
-    private String name;
-
-    @Column(name = "lastname", nullable = false)
-    @NotNull
-    private String lastname;
+    private String username;
 
     @Override
     public boolean equals(Object o) {
@@ -40,12 +39,11 @@ public class User {
         if (!(o instanceof User)) return false;
         User user = (User) o;
         return id.equals(user.id) &&
-                name.equals(user.name) &&
-                lastname.equals(user.lastname);
+                username.equals(user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastname);
+        return Objects.hash(id, username);
     }
 }

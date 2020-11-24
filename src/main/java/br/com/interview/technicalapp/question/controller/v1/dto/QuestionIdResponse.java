@@ -1,10 +1,10 @@
 package br.com.interview.technicalapp.question.controller.v1.dto;
 
+import br.com.interview.technicalapp.question.model.Question;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import br.com.interview.technicalapp.question.model.Question;
 
 import lombok.Getter;
 import lombok.Setter;
