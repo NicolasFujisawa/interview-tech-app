@@ -9,14 +9,11 @@ import lombok.Setter;
 @Setter
 public class UserRequest {
 
-    private String nome;
-
-    private String senha;
+    private String username;
 
     public static User render(UserRequest u) {
         var user = new User();
-        user.setUsername(u.getNome());
-        user.setPassword(u.getSenha());
+        user.setUsername(u.getUsername());
         return user;
     }
 }

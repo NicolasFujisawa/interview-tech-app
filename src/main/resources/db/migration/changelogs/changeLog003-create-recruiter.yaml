@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: nicolas.fujisawa
+      changes:
+        - createTable:
+            tableName: recruiters
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: recruiters_pkey
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: recruiters
+            baseColumnNames: user_id
+            constraintName: fkey_recruiters_users
+            referencedTableName: users
+            referencedColumnNames: id
+        - rollback:
+            dropTable:
+              tableName: recruiters

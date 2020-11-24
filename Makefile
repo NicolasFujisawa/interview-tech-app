@@ -1,10 +1,10 @@
 dk-build:
 	docker-compose build
 
-dk-up:
+dk-upb:
 	docker-compose up --build
 
-dk-up-recreate:
+dk-upb-recreate:
 	docker-compose up --build --force-recreate
 
 dk-down:

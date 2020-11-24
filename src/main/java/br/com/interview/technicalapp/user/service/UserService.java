@@ -8,8 +8,6 @@ import java.util.UUID;
 
 public interface UserService {
 
-    User create(User user);
-
     Optional<User> findById(UUID userId);
 
     List<User> findAll();

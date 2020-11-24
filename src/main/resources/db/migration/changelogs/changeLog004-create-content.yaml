@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-contents
+      author: nicolas.fujisawa
+      changes:
+        - createTable:
+            tableName: contents
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: contents_pkey
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(250)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: owner_id
+                  type: uuid
+        - addForeignKeyConstraint:
+            baseTableName: contents
+            baseColumnNames: owner_id
+            constraintName: fkey_contents_recruiters
+            referencedTableName: recruiters
+            referencedColumnNames: user_id
+        - rollback:
+            dropTable:
+              tableName: contents

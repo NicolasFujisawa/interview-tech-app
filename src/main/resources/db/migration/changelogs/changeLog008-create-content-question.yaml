@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-content_question
+      author: nicolas.fujisawa
+      changes:
+        - createTable:
+            tableName: content_question
+            columns:
+              - column:
+                  name: question_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content_id
+                  type: uuid
+                  constraints:
+                    - nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: content_question
+            baseColumnNames: question_id
+            constraintName: fkey_content_question_questions
+            referencedTableName: questions
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: content_question
+            baseColumnNames: content_id
+            constraintName: fkey_content_question_contents
+            referencedTableName: contents
+            referencedColumnNames: id
+
+        - rollback:
+            dropTable:
+              tableName: content_question
