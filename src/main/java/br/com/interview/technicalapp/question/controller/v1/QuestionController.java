@@ -1,5 +1,7 @@
 package br.com.interview.technicalapp.question.controller.v1;
 
+import javax.validation.Valid;
+
 import br.com.interview.technicalapp.question.controller.v1.dto.QuestionRequest;
 import br.com.interview.technicalapp.question.controller.v1.dto.QuestionResponse;
 import br.com.interview.technicalapp.question.service.QuestionService;
@@ -42,7 +44,7 @@ public class QuestionController {
 
     @PutMapping("/{questionId}")
     public ResponseEntity<QuestionResponse> update(@PathVariable UUID questionId,
-                                                   @RequestBody QuestionRequest questionRequest) {
+                                                   @RequestBody @Valid QuestionRequest questionRequest) {
         var question = this.questionService.findById(questionId);
         if (question.isPresent()) {
             var questionSave = question.get();

@@ -1,5 +1,9 @@
 package br.com.interview.technicalapp.recruiter.controller.v1;
 
+import javax.validation.Valid;
+
+import br.com.interview.technicalapp.business.CustomValid;
+import br.com.interview.technicalapp.business.CustomValidator;
 import br.com.interview.technicalapp.content.controller.v1.dto.ContentRequest;
 import br.com.interview.technicalapp.content.controller.v1.dto.ContentResponse;
 import br.com.interview.technicalapp.content.service.ContentService;
@@ -52,7 +56,7 @@ public class RecruiterController {
 
     @PostMapping("/{recruiterId}/questions")
     public ResponseEntity<QuestionResponse> createQuestion(@PathVariable("recruiterId") UUID recruiterId,
-                                                           @RequestBody QuestionRequest questionRequest) {
+                                                           @RequestBody @Valid QuestionRequest questionRequest) {
         var recruiter = this.recruiterService.findById(recruiterId);
         if (recruiter.isPresent()) {
             var recruiterPresent = recruiter.get();
@@ -66,8 +70,9 @@ public class RecruiterController {
     }
 
     @PostMapping("/{recruiterId}/contents")
+    @CustomValid(value = 1)
     public ResponseEntity<ContentResponse> createContent(@PathVariable("recruiterId") UUID recruiterId,
-                                                         @RequestBody ContentRequest contentRequest) {
+                                                         @RequestBody @Valid ContentRequest contentRequest) {
         var recruiter = this.recruiterService.findById(recruiterId);
         if (recruiter.isPresent()) {
             var recruiterPresent = recruiter.get();
@@ -81,7 +86,7 @@ public class RecruiterController {
     }
 
     @PostMapping
-    public ResponseEntity<RecruiterResponse> create(@RequestBody RecruiterRequest request) {
+    public ResponseEntity<RecruiterResponse> create(@RequestBody @Valid RecruiterRequest request) {
         var recruiter = RecruiterRequest.render(request);
         try {
             var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
@@ -101,7 +106,7 @@ public class RecruiterController {
 
     @PutMapping("/{recruiterId}")
     public ResponseEntity<Void> update(@PathVariable UUID recruiterId,
-                                       @RequestBody RecruiterRequest recruiterRequest) {
+                                       @RequestBody @Valid RecruiterRequest recruiterRequest) {
         var recruiterOptional = this.recruiterService.findById(recruiterId);
 
         if (recruiterOptional.isPresent()) {

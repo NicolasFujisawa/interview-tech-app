@@ -15,7 +15,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: username
-                  type: varchar(72)
+                  type: varchar(25)
                   constraints:
                     nullable: false
         - rollback:
