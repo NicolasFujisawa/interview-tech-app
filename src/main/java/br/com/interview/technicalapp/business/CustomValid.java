@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Constraint(validatedBy = CustomValidator.class)
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 public @interface CustomValid {
 
@@ -29,41 +29,20 @@ public @interface CustomValid {
      *
      * @return the string
      */
-    String message() default "Fez algo não permitido {value}";
+    String message() default "Fez algo não permitido";
 
     /**
      * Groups class [ ].
      *
      * @return the class [ ]
      */
-    Class<?>[] groups() default { };
-
-    /**
-     * Value long.
-     *
-     * @return the long
-     */
-    long value();
+    Class<?>[] groups() default {};
 
     /**
      * Pay load class [ ].
      *
      * @return the class [ ]
      */
-    Class<? extends Payload>[] payLoad() default { };
+    Class<? extends Payload>[] payload() default {};
 
-    /**
-     * The interface List.
-     */
-    @Documented
-    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
-    @Retention(RUNTIME)
-    @interface List {
-        /**
-         * Value custom valid [ ].
-         *
-         * @return the custom valid [ ]
-         */
-        CustomValid[] value();
-    }
 }
