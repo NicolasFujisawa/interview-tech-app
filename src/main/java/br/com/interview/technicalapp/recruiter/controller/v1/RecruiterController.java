@@ -1,5 +1,6 @@
 package br.com.interview.technicalapp.recruiter.controller.v1;
 
+import br.com.interview.technicalapp.business.CustomValid;
 import br.com.interview.technicalapp.content.controller.v1.dto.ContentRequest;
 import br.com.interview.technicalapp.content.controller.v1.dto.ContentResponse;
 import br.com.interview.technicalapp.content.service.ContentService;
@@ -10,6 +11,8 @@ import br.com.interview.technicalapp.recruiter.controller.v1.dto.RecruiterReques
 import br.com.interview.technicalapp.recruiter.controller.v1.dto.RecruiterResponse;
 import br.com.interview.technicalapp.recruiter.service.RecruiterService;
 
+import javax.validation.Valid;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +33,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1/recruiters")
+@Validated
 public class RecruiterController {
 
     @Autowired
@@ -52,7 +57,7 @@ public class RecruiterController {
 
     @PostMapping("/{recruiterId}/questions")
     public ResponseEntity<QuestionResponse> createQuestion(@PathVariable("recruiterId") UUID recruiterId,
-                                                           @RequestBody QuestionRequest questionRequest) {
+                                                           @RequestBody @Valid QuestionRequest questionRequest) {
         var recruiter = this.recruiterService.findById(recruiterId);
         if (recruiter.isPresent()) {
             var recruiterPresent = recruiter.get();
@@ -66,8 +71,9 @@ public class RecruiterController {
     }
 
     @PostMapping("/{recruiterId}/contents")
+    @CustomValid
     public ResponseEntity<ContentResponse> createContent(@PathVariable("recruiterId") UUID recruiterId,
-                                                         @RequestBody ContentRequest contentRequest) {
+                                                         @RequestBody @Valid ContentRequest contentRequest) {
         var recruiter = this.recruiterService.findById(recruiterId);
         if (recruiter.isPresent()) {
             var recruiterPresent = recruiter.get();
@@ -81,7 +87,7 @@ public class RecruiterController {
     }
 
     @PostMapping
-    public ResponseEntity<RecruiterResponse> create(@RequestBody RecruiterRequest request) {
+    public ResponseEntity<RecruiterResponse> create(@RequestBody @Valid RecruiterRequest request) {
         var recruiter = RecruiterRequest.render(request);
         try {
             var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
@@ -101,7 +107,7 @@ public class RecruiterController {
 
     @PutMapping("/{recruiterId}")
     public ResponseEntity<Void> update(@PathVariable UUID recruiterId,
-                                       @RequestBody RecruiterRequest recruiterRequest) {
+                                       @RequestBody @Valid RecruiterRequest recruiterRequest) {
         var recruiterOptional = this.recruiterService.findById(recruiterId);
 
         if (recruiterOptional.isPresent()) {
