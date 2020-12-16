@@ -1,5 +1,7 @@
 package br.com.interview.technicalapp.exception;
 
+import br.com.interview.technicalapp.recruiter.repository.exception.RecruiterNotFoundException;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -56,6 +58,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST)
                         .message(String.join("\n", messages))
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(RecruiterNotFoundException.class)
+    protected ResponseEntity<ErrorResponse> handleRecruiterNotFoundException(RecruiterNotFoundException ex) {
+        log.info("From handleRecruiterNotFoundException");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ErrorResponse.builder()
+                        .status(HttpStatus.NOT_FOUND)
+                        .message(ex.getMessage())
                         .build()
         );
     }

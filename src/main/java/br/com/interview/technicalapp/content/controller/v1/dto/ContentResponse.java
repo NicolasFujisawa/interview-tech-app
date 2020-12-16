@@ -33,7 +33,7 @@ public class ContentResponse {
         return contentResponse;
     }
 
-    public static List<ContentResponse> renderMany(List<Content> contents) {
+    public static List<ContentResponse> renderMany(Iterable<Content> contents) {
         if (contents == null) {
             return new ArrayList<>();
         }

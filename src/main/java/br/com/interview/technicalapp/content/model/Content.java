@@ -33,7 +33,7 @@ public class Content {
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 110)
     private String title;
 
     @ManyToMany

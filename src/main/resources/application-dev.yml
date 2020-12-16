@@ -23,6 +23,10 @@ spring:
   liquibase:
     change-log: db/migration/db.changelog-master.yaml
     enabled: true
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
   devtools:
     remote:
       secret: mysecret
