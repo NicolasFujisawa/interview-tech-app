@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/techapp
-    username: techapp
-    password: techapp
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     name: techappdatasource
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
@@ -27,3 +27,5 @@ spring:
     output:
       ansi:
         enabled: always
+jwt:
+  secret: ${JWT_SECRET}

@@ -1,20 +1,24 @@
 package br.com.interview.technicalapp.recruiter.service;
 
+import br.com.interview.technicalapp.recruiter.model.Recruiter;
+import br.com.interview.technicalapp.recruiter.repository.RecruiterRepository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import br.com.interview.technicalapp.recruiter.model.Recruiter;
-import br.com.interview.technicalapp.recruiter.repository.RecruiterRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RecruiterServiceImpl implements RecruiterService {
 
     @Autowired
-    RecruiterRepository recruiterRepository;
+    private RecruiterRepository recruiterRepository;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     @Override
     public List<Recruiter> findAll() {
@@ -23,6 +27,7 @@ public class RecruiterServiceImpl implements RecruiterService {
 
     @Override
     public Recruiter save(Recruiter recruiter) {
+        recruiter.setPassword(this.bcryptEncoder.encode(recruiter.getPassword()));
         return this.recruiterRepository.save(recruiter);
     }
 

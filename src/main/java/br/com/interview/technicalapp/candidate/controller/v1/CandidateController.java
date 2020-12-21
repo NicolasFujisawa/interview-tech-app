@@ -1,5 +1,7 @@
 package br.com.interview.technicalapp.candidate.controller.v1;
 
+import javax.validation.Valid;
+
 import br.com.interview.technicalapp.candidate.controller.v1.dto.CandidateRequest;
 import br.com.interview.technicalapp.candidate.controller.v1.dto.CandidateResponse;
 import br.com.interview.technicalapp.candidate.service.CandidateService;
@@ -39,8 +41,8 @@ public class CandidateController {
     }
 
     @PostMapping
-    public ResponseEntity<CandidateResponse> create(@RequestBody CandidateRequest candidateRequest) {
-        var candidate = CandidateRequest.render(candidateRequest);
+    public ResponseEntity<CandidateResponse> create(@Valid @RequestBody CandidateRequest candidateRequest) {
+        var candidate = CandidateRequest.parse(candidateRequest);
         var candidateResponse = CandidateResponse.render(this.candidateService.save(candidate));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(candidateResponse);
@@ -56,7 +58,7 @@ public class CandidateController {
 
     @PutMapping("/{candidateId}")
     public ResponseEntity<Void> update(@PathVariable UUID candidateId,
-                                       @RequestBody CandidateRequest candidateRequest) {
+                                       @RequestBody @Valid CandidateRequest candidateRequest) {
         var candidateOptional = this.candidateService.findById(candidateId);
 
         if (candidateOptional.isPresent()) {

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecruiterRepository extends JpaRepository<Recruiter, UUID> {
+
+    Recruiter findByUsername(String username);
 }

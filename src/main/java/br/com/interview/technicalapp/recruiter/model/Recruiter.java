@@ -1,5 +1,9 @@
 package br.com.interview.technicalapp.recruiter.model;
 
+import br.com.interview.technicalapp.content.model.Content;
+import br.com.interview.technicalapp.question.model.Question;
+import br.com.interview.technicalapp.user.model.User;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -13,11 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import br.com.interview.technicalapp.content.model.Content;
-import br.com.interview.technicalapp.question.model.Question;
-import br.com.interview.technicalapp.user.model.User;
-
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +29,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Recruiter extends User {
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Content> contents = new ArrayList<>();
 
     @ManyToMany

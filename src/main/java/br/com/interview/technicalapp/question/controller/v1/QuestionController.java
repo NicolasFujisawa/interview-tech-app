@@ -1,10 +1,10 @@
 package br.com.interview.technicalapp.question.controller.v1;
 
-import javax.validation.Valid;
-
 import br.com.interview.technicalapp.question.controller.v1.dto.QuestionRequest;
 import br.com.interview.technicalapp.question.controller.v1.dto.QuestionResponse;
 import br.com.interview.technicalapp.question.service.QuestionService;
+
+import javax.validation.Valid;
 
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("/v1/question")
+@RequestMapping("/v1/questions")
 public class QuestionController {
 
     @Autowired
