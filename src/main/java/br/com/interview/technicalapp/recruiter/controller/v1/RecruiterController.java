@@ -13,7 +13,6 @@ import br.com.interview.technicalapp.recruiter.service.RecruiterService;
 
 import javax.validation.Valid;
 
-import java.security.KeyPairGenerator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -84,14 +83,14 @@ public class RecruiterController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<RecruiterResponse> create(@Valid @RequestBody RecruiterRequest request) {
         var recruiter = RecruiterRequest.render(request);
         try {
             var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
             return ResponseEntity.status(HttpStatus.CREATED).body(recruiterResponse);
         } catch (IllegalArgumentException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username não pode estar vazio");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username or password could not be null");
         }
     }
 
@@ -113,6 +112,8 @@ public class RecruiterController {
         if (recruiterOptional.isPresent()) {
             var recruiter = recruiterOptional.get();
             recruiter.setUsername(recruiterRequest.getUsername());
+            recruiter.setPassword(recruiterRequest.getPassword());
+            recruiter.setEmail(recruiterRequest.getEmail());
             this.recruiterService.save(recruiter);
             return ResponseEntity.ok().build();
         }

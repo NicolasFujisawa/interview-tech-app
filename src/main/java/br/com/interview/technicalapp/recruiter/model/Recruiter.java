@@ -29,7 +29,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Recruiter extends User {
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Content> contents = new ArrayList<>();
 
     @ManyToMany

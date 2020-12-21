@@ -1,7 +1,5 @@
 package br.com.interview.technicalapp.user.controller.v1.dto;
 
-import br.com.interview.technicalapp.user.model.User;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserRequest {
+public class LoginRequest {
 
     @NotNull(message = "Username could not be null")
     @Size(min = 4, max = 32, message = "Username length not permitted")
@@ -20,9 +18,4 @@ public class UserRequest {
     @Size(min = 4, max = 127, message = "Password length not permitted")
     private String password;
 
-    public static User render(UserRequest u) {
-        var user = new User();
-        user.setUsername(u.getUsername());
-        return user;
-    }
 }

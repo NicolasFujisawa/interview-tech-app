@@ -10,9 +10,8 @@ services:
     ports:
       - '8080:8080'
       - '5005:5005'
-    environment:
-      - ADDITIONAL_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
-      - PROFILE=dev
+    env_file:
+      - .env
     links:
       - db
   db:

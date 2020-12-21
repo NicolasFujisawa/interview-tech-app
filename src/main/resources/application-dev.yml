@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/techapp
-    username: techapp
-    password: techapp
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     name: techappdatasource
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
@@ -23,10 +23,6 @@ spring:
   liquibase:
     change-log: db/migration/db.changelog-master.yaml
     enabled: true
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
   devtools:
     remote:
       secret: mysecret
@@ -34,3 +30,5 @@ spring:
     output:
       ansi:
         enabled: always
+jwt:
+  secret: ${JWT_SECRET}
