@@ -1,8 +1,5 @@
 package br.com.interview.technicalapp.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] antPatterns = new String[]{
             "/v1/recruiters/signup",
+            "/v1/candidates/signup",
             "/v1/users/signin",
+            "/v1/users/valid",
             "/v3/api-docs/**",
             "/swagger-ui.html",
             "/swagger-ui/**"

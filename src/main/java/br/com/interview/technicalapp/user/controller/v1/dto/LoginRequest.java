@@ -1,5 +1,7 @@
 package br.com.interview.technicalapp.user.controller.v1.dto;
 
+import br.com.interview.technicalapp.user.model.User;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -18,4 +20,9 @@ public class LoginRequest {
     @Size(min = 4, max = 127, message = "Password length not permitted")
     private String password;
 
+    public static User render(LoginRequest u) {
+        var user = new User();
+        user.setUsername(u.getUsername());
+        return user;
+    }
 }

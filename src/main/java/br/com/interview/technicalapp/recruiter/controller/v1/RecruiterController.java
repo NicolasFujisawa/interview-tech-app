@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,9 @@ public class RecruiterController {
 
     @Autowired
     private ContentService contentService;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     @GetMapping
     public ResponseEntity<List<RecruiterResponse>> list() {
@@ -85,6 +89,7 @@ public class RecruiterController {
 
     @PostMapping("/signup")
     public ResponseEntity<RecruiterResponse> create(@Valid @RequestBody RecruiterRequest request) {
+        request.setPassword(this.bcryptEncoder.encode(request.getPassword()));
         var recruiter = RecruiterRequest.render(request);
         try {
             var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
@@ -107,6 +112,7 @@ public class RecruiterController {
     @PutMapping("/{recruiterId}")
     public ResponseEntity<Void> update(@PathVariable UUID recruiterId,
                                        @Valid @RequestBody RecruiterRequest recruiterRequest) {
+        recruiterRequest.setPassword(this.bcryptEncoder.encode(recruiterRequest.getPassword()));
         var recruiterOptional = this.recruiterService.findById(recruiterId);
 
         if (recruiterOptional.isPresent()) {
