@@ -17,9 +17,6 @@ public class RecruiterServiceImpl implements RecruiterService {
     @Autowired
     private RecruiterRepository recruiterRepository;
 
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
-
     @Override
     public List<Recruiter> findAll() {
         return this.recruiterRepository.findAll();
@@ -27,7 +24,6 @@ public class RecruiterServiceImpl implements RecruiterService {
 
     @Override
     public Recruiter save(Recruiter recruiter) {
-        recruiter.setPassword(this.bcryptEncoder.encode(recruiter.getPassword()));
         return this.recruiterRepository.save(recruiter);
     }
 

@@ -19,7 +19,7 @@ public class CandidateResponse {
 
     private List<ContentResponse> availableContents;
 
-    public static CandidateResponse render(Candidate candidate) {
+    public static CandidateResponse parse(Candidate candidate) {
         var candidateResponse = new CandidateResponse();
         candidateResponse.setId(candidate.getId());
         candidateResponse.setUsername(candidate.getUsername());

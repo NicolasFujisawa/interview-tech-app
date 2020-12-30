@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1/recruiters")
@@ -42,6 +42,9 @@ public class RecruiterController {
 
     @Autowired
     private ContentService contentService;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     @GetMapping
     public ResponseEntity<List<RecruiterResponse>> list() {
@@ -85,13 +88,10 @@ public class RecruiterController {
 
     @PostMapping("/signup")
     public ResponseEntity<RecruiterResponse> create(@Valid @RequestBody RecruiterRequest request) {
+        request.setPassword(this.bcryptEncoder.encode(request.getPassword()));
         var recruiter = RecruiterRequest.render(request);
-        try {
-            var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
-            return ResponseEntity.status(HttpStatus.CREATED).body(recruiterResponse);
-        } catch (IllegalArgumentException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username or password could not be null");
-        }
+        var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
+        return ResponseEntity.status(HttpStatus.CREATED).body(recruiterResponse);
     }
 
     @GetMapping("/{recruiterId}")
@@ -107,6 +107,7 @@ public class RecruiterController {
     @PutMapping("/{recruiterId}")
     public ResponseEntity<Void> update(@PathVariable UUID recruiterId,
                                        @Valid @RequestBody RecruiterRequest recruiterRequest) {
+        recruiterRequest.setPassword(this.bcryptEncoder.encode(recruiterRequest.getPassword()));
         var recruiterOptional = this.recruiterService.findById(recruiterId);
 
         if (recruiterOptional.isPresent()) {

@@ -1,20 +1,28 @@
 package br.com.interview.technicalapp.exception;
 
-import br.com.interview.technicalapp.recruiter.repository.exception.RecruiterNotFoundException;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import br.com.interview.technicalapp.recruiter.repository.exception.RecruiterNotFoundException;
+
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.transaction.TransactionSystemException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -83,4 +91,25 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                         .build()
         );
     }
+
+    @Override
+    @NonNull
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull MethodArgumentNotValidException ex,
+                                                                  @NonNull HttpHeaders headers,
+                                                                  @NonNull HttpStatus status,
+                                                                  @NonNull WebRequest request) {
+        log.info("From handleMethodArgumentNotValid", ex);
+        List<ObjectError> errors = ex.getAllErrors();
+        List<String> messagesErrors = errors.stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.toList());
+        return ResponseEntity.badRequest().body(
+                ErrorResponse.builder()
+                        .status(HttpStatus.BAD_REQUEST)
+                        .message(messagesErrors)
+                        .build()
+        );
+    }
+
+
 }
