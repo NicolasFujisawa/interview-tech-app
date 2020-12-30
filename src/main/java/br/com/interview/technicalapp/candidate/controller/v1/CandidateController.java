@@ -1,18 +1,15 @@
 package br.com.interview.technicalapp.candidate.controller.v1;
 
-import javax.validation.Valid;
-
 import br.com.interview.technicalapp.candidate.controller.v1.dto.CandidateRequest;
 import br.com.interview.technicalapp.candidate.controller.v1.dto.CandidateResponse;
 import br.com.interview.technicalapp.candidate.repository.exception.CandidateNotFoundException;
 import br.com.interview.technicalapp.candidate.service.CandidateService;
 
+import javax.validation.Valid;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import br.com.interview.technicalapp.recruiter.controller.v1.dto.RecruiterRequest;
-import br.com.interview.technicalapp.recruiter.controller.v1.dto.RecruiterResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,27 +41,23 @@ public class CandidateController {
 
         return ResponseEntity.ok(candidates
                 .stream()
-                .map(CandidateResponse::render)
+                .map(CandidateResponse::parse)
                 .collect(Collectors.toList()));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<CandidateResponse> create(@Valid @RequestBody CandidateRequest candidateRequest) {
         candidateRequest.setPassword(passwordEncoder.encode(candidateRequest.getPassword()));
-        var candidate = CandidateRequest.parse(candidateRequest);
-        try {
-            var candidateResponse = CandidateResponse.render(candidateService.save(candidate));
-            return ResponseEntity.status(HttpStatus.CREATED).body(candidateResponse);
-        } catch (IllegalArgumentException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username or password could not be null");
-        }
+        var candidate = CandidateRequest.render(candidateRequest);
+        var candidateResponse = CandidateResponse.parse(candidateService.save(candidate));
+        return ResponseEntity.status(HttpStatus.CREATED).body(candidateResponse);
     }
 
     @GetMapping("/{candidateId}")
     public ResponseEntity<CandidateResponse> show(@PathVariable("candidateId") UUID candidateId) {
         var candidate = this.candidateService.findById(candidateId);
 
-        return candidate.map(e -> ResponseEntity.ok(CandidateResponse.render(e)))
+        return candidate.map(e -> ResponseEntity.ok(CandidateResponse.parse(e)))
                 .orElseThrow(() -> new CandidateNotFoundException(candidateId));
     }
 

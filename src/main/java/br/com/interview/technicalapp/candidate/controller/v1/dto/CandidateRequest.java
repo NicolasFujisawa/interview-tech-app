@@ -21,12 +21,12 @@ public class CandidateRequest {
     @Size(min = 4, max = 127, message = "Password length not permitted")
     private String password;
 
-    @NotNull(message = "Password could not be null")
+    @NotNull(message = "Email could not be null")
     @Size(min = 4, max = 320, message = "Email length not permitted")
-    @Email(message = "Email format incorrect")
+    @Email(message = "Incorrect email format")
     private String email;
 
-    public static Candidate parse(CandidateRequest candidateRequest) {
+    public static Candidate render(CandidateRequest candidateRequest) {
         var candidate = new Candidate();
         candidate.setUsername(candidateRequest.getUsername());
         candidate.setPassword(candidateRequest.getPassword());

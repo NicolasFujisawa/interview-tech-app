@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1/recruiters")
@@ -91,12 +90,8 @@ public class RecruiterController {
     public ResponseEntity<RecruiterResponse> create(@Valid @RequestBody RecruiterRequest request) {
         request.setPassword(this.bcryptEncoder.encode(request.getPassword()));
         var recruiter = RecruiterRequest.render(request);
-        try {
-            var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
-            return ResponseEntity.status(HttpStatus.CREATED).body(recruiterResponse);
-        } catch (IllegalArgumentException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username or password could not be null");
-        }
+        var recruiterResponse = RecruiterResponse.render(recruiterService.save(recruiter));
+        return ResponseEntity.status(HttpStatus.CREATED).body(recruiterResponse);
     }
 
     @GetMapping("/{recruiterId}")
