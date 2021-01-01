@@ -7,6 +7,7 @@ Projeto API para montar provas com questões personalizadas, e distribuilas para
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/NicolasFujisawa/interview-tech-app)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=NicolasFujisawa_interview-tech-app&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=NicolasFujisawa_interview-tech-app)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=NicolasFujisawa_interview-tech-app&metric=code_smells)](https://sonarcloud.io/dashboard?id=NicolasFujisawa_interview-tech-app)
+
 ## Ambiente Dev
 
 Builde com Gradle
@@ -16,6 +17,7 @@ make build
 ```
 
 Suba seu projeto com docker
+
 ```shell
 make dk-upb
 ```
@@ -37,3 +39,7 @@ Também pode debugar no IntelliJ iniciando uma chamada remota na porta 5005
 - [Postgres](https://www.postgresql.org/)
 
 - [Liquibase](https://www.liquibase.org/)
+
+- [Jwt](https://jwt.io/)
+
+- [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
