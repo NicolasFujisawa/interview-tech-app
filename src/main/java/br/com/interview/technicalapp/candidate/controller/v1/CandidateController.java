@@ -4,6 +4,7 @@ import br.com.interview.technicalapp.candidate.controller.v1.dto.CandidateReques
 import br.com.interview.technicalapp.candidate.controller.v1.dto.CandidateResponse;
 import br.com.interview.technicalapp.candidate.repository.exception.CandidateNotFoundException;
 import br.com.interview.technicalapp.candidate.service.CandidateService;
+import br.com.interview.technicalapp.content.controller.v1.dto.ContentResponse;
 
 import javax.validation.Valid;
 
@@ -87,5 +88,13 @@ public class CandidateController {
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidato não encontrado", ex);
         }
+    }
+
+    @GetMapping("/{candidateId}/contents")
+    public ResponseEntity<List<ContentResponse>> listContents(@PathVariable("candidateId") UUID candidateId) {
+        var candidateOptional = this.candidateService.findById(candidateId);
+        return ResponseEntity.ok(candidateOptional
+                .map(k -> ContentResponse.renderMany(k.getAvailableContents()))
+                .orElseThrow(() -> new CandidateNotFoundException(candidateId)));
     }
 }
