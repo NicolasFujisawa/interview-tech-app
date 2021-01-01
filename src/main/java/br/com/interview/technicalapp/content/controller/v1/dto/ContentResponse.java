@@ -2,7 +2,6 @@ package br.com.interview.technicalapp.content.controller.v1.dto;
 
 import br.com.interview.technicalapp.content.controller.v1.ContentController;
 import br.com.interview.technicalapp.content.model.Content;
-import br.com.interview.technicalapp.question.controller.v1.dto.QuestionIdResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +23,13 @@ public class ContentResponse extends RepresentationModel<ContentResponse> {
 
     private String title;
 
-    private List<QuestionIdResponse> questions;
-
     public static ContentResponse render(Content content) {
         var contentResponse = new ContentResponse();
         contentResponse.setId(content.getId());
         contentResponse.setOwner(content.getOwner().getId());
         contentResponse.setTitle(content.getTitle());
-        content.getQuestions()
-                .forEach(k -> contentResponse.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ContentController.class)
-                        .show(k.getId())).withRel("questions")));
-        contentResponse.setQuestions(QuestionIdResponse.renderMany(content.getQuestions()));
+        contentResponse.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ContentController.class)
+                .listQuestions(content.getId())).withRel("questions"));
 
         return contentResponse;
     }
@@ -58,12 +53,11 @@ public class ContentResponse extends RepresentationModel<ContentResponse> {
         ContentResponse that = (ContentResponse) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(owner, that.owner) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(questions, that.questions);
+                Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, owner, title, questions);
+        return Objects.hash(super.hashCode(), id, owner, title);
     }
 }
