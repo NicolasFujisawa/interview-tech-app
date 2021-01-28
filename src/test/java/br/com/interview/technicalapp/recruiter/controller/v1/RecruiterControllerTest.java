@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import br.com.interview.technicalapp.candidate.service.CandidateService;
+import br.com.interview.technicalapp.config.WebSecurityConfig;
 import br.com.interview.technicalapp.content.service.ContentService;
 import br.com.interview.technicalapp.question.service.QuestionService;
 import br.com.interview.technicalapp.recruiter.controller.v1.dto.RecruiterRequest;
@@ -24,28 +25,29 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-//@RunWith(SpringRunner.class)
-@ExtendWith(SpringExtension.class)
-@WebMvcTest
-@ActiveProfiles({"dev"})
+
+@SpringBootTest(classes = ApplicationContext.class)
+@ActiveProfiles("test")
+@Disabled
 class RecruiterControllerTest {
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
     private RecruiterService recruiterService;
@@ -66,6 +68,7 @@ class RecruiterControllerTest {
     static void setUp() {
     }
 
+    @Test
     void givenRecruiter_whenSaveRecruiter_thenReturnJsonArray() throws Exception {
         RecruiterRequest joe = new RecruiterRequest();
         joe.setUsername("Joe");

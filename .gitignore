@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 docker/
 .env
+aws.env
 
 ### STS ###
 .apt_generated

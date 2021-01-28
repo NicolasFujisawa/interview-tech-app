@@ -1,5 +1,7 @@
 package br.com.interview.technicalapp.exception;
 
+import br.com.interview.technicalapp.recruiter.repository.exception.RecruiterNotFoundException;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -8,8 +10,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import br.com.interview.technicalapp.recruiter.repository.exception.RecruiterNotFoundException;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.TransactionSystemException;
-import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

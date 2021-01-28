@@ -1,0 +1,7 @@
+spring:
+  banner:
+    output:
+      ansi:
+        enabled: always
+jwt:
+  secret: ${JWT_SECRET}
