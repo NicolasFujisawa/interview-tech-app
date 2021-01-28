@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   technical-api:
@@ -18,9 +18,9 @@ services:
     image: postgres:13-alpine
     container_name: technicalapp_db
     environment:
-      POSTGRES_DB: techapp
-      POSTGRES_USER: techapp
-      POSTGRES_PASSWORD: techapp
+      POSTGRES_DB: $DATABASE
+      POSTGRES_USER: $DATASOURCE_USERNAME
+      POSTGRES_PASSWORD: $DATASOURCE_PASSWORD
     ports:
       - '5432:5432'
     volumes:

@@ -68,6 +68,7 @@ class RecruiterControllerTest {
     static void setUp() {
     }
 
+    @Test
     void givenRecruiter_whenSaveRecruiter_thenReturnJsonArray() throws Exception {
         RecruiterRequest joe = new RecruiterRequest();
         joe.setUsername("Joe");

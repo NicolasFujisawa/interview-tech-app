@@ -7,8 +7,10 @@ import javax.validation.ValidatorFactory
 
 import java.util.stream.Collectors
 
+import groovy.transform.CompileDynamic
 import spock.lang.Specification
 
+@CompileDynamic
 class RecruiterRequestSpec extends Specification {
 
     private Validator validator

@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo Intalling correto9...
+  pre_build:
+    commands:
+      - echo Cleaning gradle files in pre_build phase...
+      - ./gradlew clean
+  build:
+    commands:
+     - echo Build started on `date`
+     - ./gradlew build
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  type: zip
+  files:
+    - 'build/libs/*.jar'
