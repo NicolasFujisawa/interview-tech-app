@@ -3,20 +3,19 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java:  openjdk11
     commands:
-      - echo Intalling correto9...
+      - echo Installing openjdk11...
   pre_build:
     commands:
-      - echo Cleaning gradle files in pre_build phase...
-      - ./gradlew clean
+      - echo Nothing to do in pre_build phase...
   build:
     commands:
-     - echo Build started on `date`
+     - echo Build started
      - ./gradlew build
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo Build completed
 artifacts:
   type: zip
   files:

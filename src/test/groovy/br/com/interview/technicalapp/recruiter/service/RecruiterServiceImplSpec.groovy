@@ -1,32 +1,47 @@
 package br.com.interview.technicalapp.recruiter.service
 
+import br.com.interview.technicalapp.TechnicalAppApplication
 import br.com.interview.technicalapp.recruiter.model.Recruiter
-import br.com.interview.technicalapp.recruiter.repository.RecruiterRepository
+
+import javax.transaction.Transactional
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.annotation.Rollback
 
 import spock.lang.Specification
 
+@SpringBootTest(classes = [ TechnicalAppApplication.class ])
+@Transactional
 class RecruiterServiceImplSpec extends Specification {
 
+    @Autowired
     private RecruiterService recruiterService
-    private RecruiterRepository recruiterRepository
 
-    def setup() {
-        recruiterRepository = Stub(RecruiterRepository.class)
-        recruiterService = new RecruiterServiceImpl(recruiterRepository: recruiterRepository)
-    }
-
-    def "must get optional recruiter"() {
+    @Rollback
+    def "create and delete a recruiter"() {
         given:
-        UUID uuid = UUID.randomUUID()
         Recruiter recruiter = new Recruiter()
-        recruiter.setId(uuid)
-        recruiter.setUsername("Joe")
-        recruiterRepository.findById(uuid) >> Optional.of(recruiter)
+        recruiter.setUsername("jabin")
+        recruiter.setPassword("mysecret")
+        recruiter.setEmail("my@email.com")
+
         when:
-        Optional<Recruiter> recruiterOptional = recruiterService.findById(uuid)
+        Recruiter response = recruiterService.save(recruiter)
+
         then:
-        recruiterOptional.isPresent()
-        recruiterOptional.get() == recruiter
+        response.getId() != null
+        recruiter == response
+
+        when:
+        UUID uuid = response.getId()
+        this.recruiterService.deleteById(uuid)
+        List<Recruiter> recruiters = this.recruiterService.findAll()
+        Optional<Recruiter> recruiterOptional = this.recruiterService.findById(uuid)
+
+        then:
+        recruiters.isEmpty()
+        !recruiterOptional.isPresent()
     }
 
 }

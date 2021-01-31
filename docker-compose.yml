@@ -2,11 +2,10 @@ version: '3.8'
 
 services:
   technical-api:
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
-    image: technical_app/api
-    container_name: technicalapp_api
+    image: technicalapp-api:0.0.1-SNAPSHOT
+    container_name: technicalapp
+    volumes:
+      - ./build/libs/technical-app-0.0.1-SNAPSHOT.jar:/app/api/technical-app.jar
     ports:
       - '8080:8080'
       - '5005:5005'
@@ -18,9 +17,9 @@ services:
     image: postgres:13-alpine
     container_name: technicalapp_db
     environment:
-      POSTGRES_DB: $DATABASE
-      POSTGRES_USER: $DATASOURCE_USERNAME
-      POSTGRES_PASSWORD: $DATASOURCE_PASSWORD
+      POSTGRES_DB: $DS_DB_NAME
+      POSTGRES_USER: $DS_USERNAME
+      POSTGRES_PASSWORD: $DS_PASSWORD
     ports:
       - '5432:5432'
     volumes:
