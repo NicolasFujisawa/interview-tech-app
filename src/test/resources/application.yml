@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+  liquibase:
+    enabled: false
+jwt:
+  secret: cb786a59470c9f2cc7ef40e8bfe8168059fe87cec00f02cc16cde5a48fb07975caac5ba7b62b9cfba7a2d8273e1a36c3c4473c9b0e03272d9fb9d05192688cc2

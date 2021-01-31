@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:11.0-jdk-slim
 
 ARG PROFILE
 ARG ADDITIONAL_OPTS
@@ -15,4 +15,3 @@ SHELL ["/bin/sh", "-c"]
 EXPOSE 5005 8080
 
 CMD java ${ADDITIONAL_OPTS} -jar technical-app.jar --spring.profiles.active=${PROFILE}
-

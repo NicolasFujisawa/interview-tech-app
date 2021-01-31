@@ -1,4 +1,28 @@
 spring:
+  datasource:
+    url: ${DS_URL}
+    username: ${DS_USERNAME}
+    password: ${DS_PASSWORD}
+    name: techappdatasource
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: techappool
+      connection-test-query: select 1;
+      maximum-pool-size: 10
+      minimum-idle: 1
+      connection-timeout: 20000
+      idle-timeout: 10000
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  liquibase:
+    change-log: db/migration/db.changelog-master.yaml
+    enabled: true
   banner:
     output:
       ansi:

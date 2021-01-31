@@ -1,15 +1,15 @@
 spring:
   datasource:
-    url: ${DATASOURCE_URL}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
+    url: ${DS_URL}
+    username: ${DS_USERNAME}
+    password: ${DS_PASSWORD}
     name: techappdatasource
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
     hikari:
       pool-name: techappool
       connection-test-query: select 1;
-      maximum-pol-size: 10
+      maximum-pool-size: 10
       minimum-idle: 1
       connection-timeout: 20000
       idle-timeout: 10000
